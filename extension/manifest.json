@@ -1,0 +1,17 @@
+{
+  "manifest_version": 3,
+  "name": "MailMatch",
+  "version": "1.0.0",
+  "description": "Open-source mail automation and matching assistant.",
+  "permissions": [
+    "activeTab",
+    "storage",
+    "scripting"
+  ],
+  "action": {
+    "default_popup": "popup.html"
+  },
+  "background": {
+    "service_worker": "background.js"
+  }
+}

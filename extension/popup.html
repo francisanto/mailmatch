@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MailMatch Console</title>
+  <link rel="stylesheet" href="popup.css">
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="app-container">
+    <!-- Header -->
+    <header class="app-header">
+      <div class="logo-area">
+        <div class="logo-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M4 4H20C21.1 4 22 4.9 22 6V18C22 19.1 21.1 20 20 20H4C2.9 20 2 19.1 2 18V6C2 4.9 2.9 4 4 4Z" stroke="url(#logo-grad)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M22 6L12 13L2 6" stroke="url(#logo-grad)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            <defs>
+              <linearGradient id="logo-grad" x1="2" y1="4" x2="22" y2="20" gradientUnits="userSpaceOnUse">
+                <stop stop-color="#a855f7" />
+                <stop offset="1" stop-color="#ec4899" />
+              </linearGradient>
+            </defs>
+          </svg>
+        </div>
+        <span class="logo-text">Mail<span class="text-accent">Match</span></span>
+      </div>
+      <div class="status-indicator" id="status-indicator">
+        <span class="status-dot disconnected"></span>
+        <span class="status-label" id="status-label">Offline</span>
+      </div>
+    </header>
+
+    <!-- Main Content Panel -->
+    <main class="app-main">
+      <div id="tab-automation" class="tab-panel active">
+        <!-- Connection Config Card -->
+        <div class="glass-card">
+          <div class="card-header">
+            <h3>Automation Control</h3>
+            <span class="badge" id="auto-badge">Ready</span>
+          </div>
+          <p class="card-desc">Automatically identify, match, and sync incoming email contents with backend filters.</p>
+          
+          <div class="control-row">
+            <span class="control-label">Auto-Matching Service</span>
+            <label class="switch">
+              <input type="checkbox" id="toggle-automatch" checked>
+              <span class="slider round"></span>
+            </label>
+          </div>
+        </div>
+
+        <!-- Latest Activities / Log summary -->
+        <div class="glass-card">
+          <div class="card-header">
+            <h3>Recent Detections</h3>
+            <button class="btn-text" id="btn-clear-logs">Clear</button>
+          </div>
+          <div class="log-list" id="log-list">
+            <div class="log-item empty-state" id="log-empty-state">
+              <span>No mails matched yet. Activates on Gmail tabs.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div id="tab-settings" class="tab-panel">
+        <div class="glass-card">
+          <div class="card-header">
+            <h3>Backend Server</h3>
+          </div>
+          <div class="form-group">
+            <label for="backend-url" class="form-label">API Server URL</label>
+            <input type="text" id="backend-url" class="form-input" value="http://localhost:8000" placeholder="e.g. http://localhost:8000">
+          </div>
+          <button class="btn-primary" id="btn-save-settings">Save Settings</button>
+        </div>
+
+        <div class="glass-card">
+          <div class="card-header">
+            <h3>About</h3>
+          </div>
+          <p class="about-text">MailMatch v1.0.0. Open-source assistant to parse, categorize, and automate workflows from your email client.</p>
+        </div>
+      </div>
+    </main>
+
+    <!-- Footer / Nav Tabs -->
+    <footer class="app-footer">
+      <button class="nav-tab active" data-tab="automation">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path><polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline><line x1="12" y1="22.08" x2="12" y2="12"></line></svg>
+        <span>Console</span>
+      </button>
+      <button class="nav-tab" data-tab="settings">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
+        <span>Settings</span>
+      </button>
+    </footer>
+  </div>
+  <script src="popup.js"></script>
+</body>
+</html>
